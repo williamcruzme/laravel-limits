@@ -10,8 +10,8 @@ class LimitServiceProvider extends ServiceProvider
 
     public function registerLimits()
     {
-        foreach ($this->limits() as $key => $limit) {
-            Limit::register($key, $limit);
+        foreach ($this->limits() as $key => $class) {
+            Limit::register($key, $class);
         }
     }
 

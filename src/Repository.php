@@ -16,13 +16,19 @@ class Repository
         return $this->items[$key] ??= Limit::resolveDefaultLimit($this->name, $key);
     }
 
-    public function set($key, $value)
+    public function set(...$values)
     {
-        $this->items[$key] = $value;
+        if (is_array($values[0])) {
+            $attributes = $values[0];
+        } else {
+            $attributes = [
+                $values[0] => $values[1],
+            ];
+        }
 
-        Limit::user()->limits()->updateOrCreate([], [
-            "{$this->name}->{$key}" => $value,
-        ]);
+        $this->items = $attributes + $this->items;
+
+        Limit::user()->limits()->updateOrCreate([], [$this->name => $this->items]);
     }
 
     public function has($key)
