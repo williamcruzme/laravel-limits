@@ -13,7 +13,7 @@ class Repository
 
     public function get($key)
     {
-        return $this->items[$key] ?? Limit::resolveDefaultLimit($this->name, $key);
+        return $this->items[$key] ??= Limit::resolveDefaultLimit($this->name, $key);
     }
 
     public function set($key, $value)
@@ -23,6 +23,11 @@ class Repository
         Limit::user()->limits()->updateOrCreate([], [
             "{$this->name}->{$key}" => $value,
         ]);
+    }
+
+    public function has($key)
+    {
+        return ! is_null($this->get($key));
     }
 
     public function remaining()
