@@ -7,7 +7,7 @@ use Williamcruzme\Limits\Limit;
 class Repository
 {
     public function __construct(
-        protected $name,
+        public $name,
         protected array $items
     ) {}
 
@@ -31,6 +31,15 @@ class Repository
         Limit::user()->limits()->updateOrCreate([], [$this->name => $this->items]);
     }
 
+    public function all()
+    {
+        foreach (Limit::resolve($this)->keys as $key) {
+            $this->get($key);
+        }
+
+        return $this->items;
+    }
+
     public function has($key)
     {
         return ! is_null($this->get($key));
@@ -38,8 +47,7 @@ class Repository
 
     public function remaining()
     {
-        $class = new Limit::$limits[$this->name];
-        $remainingLimits = $class->handle(Limit::user(), $this);
+        $remainingLimits = Limit::resolve($this)->handle(Limit::user(), $this);
 
         return new self($this->name, $remainingLimits + $this->items);
     }
