@@ -39,8 +39,8 @@ class Repository
     public function remaining()
     {
         $class = new Limit::$limits[$this->name];
-        $remamingLimits = $class->handle(Limit::user(), $this);
+        $remainingLimits = $class->handle(Limit::user(), $this);
 
-        return new self($this->name, $remamingLimits + $this->items);
+        return new self($this->name, $remainingLimits + $this->items);
     }
 }
