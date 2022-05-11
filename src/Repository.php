@@ -6,15 +6,10 @@ use Williamcruzme\Limits\Limit;
 
 class Repository
 {
-    protected $name;
-
-    protected $items;
-
-    public function __construct($name, array $items)
-    {
-        $this->name = $name;
-        $this->items = array_filter($items);
-    }
+    public function __construct(
+        protected $name,
+        protected array $items
+    ) {}
 
     public function get($key)
     {
