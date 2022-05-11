@@ -1,0 +1,30 @@
+{
+    "name": "williamcruzme/laravel-limits",
+    "type": "library",
+    "description": "A Laravel package to manage user limits",
+    "keywords": [
+        "laravel",
+        "user",
+        "limits"
+      ],
+      "license": "MIT",
+      "authors": [
+        {
+          "name": "williamcruzme",
+          "email": "sv.johncruz@gmail.com",
+          "homepage": "https://github.com/williamcruzme"
+        }
+      ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "~9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Williamcruzme\\Limits\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
