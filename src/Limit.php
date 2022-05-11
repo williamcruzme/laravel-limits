@@ -4,6 +4,7 @@ namespace Williamcruzme\Limits;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class Limit
 {
@@ -47,6 +48,6 @@ class Limit
             return static::$user->limits;
         });
 
-        return new Repository($name, $limits[$name] ?? []);
+        return new Repository(Str::snake($name), $limits[$name] ?? []);
     }
 }
