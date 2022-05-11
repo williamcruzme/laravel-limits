@@ -29,6 +29,11 @@ class Limit
         static::$limits[$key] = $class;
     }
 
+    public static function resolve(Repository $repository)
+    {
+        return new static::$limits[$repository->name];
+    }
+
     public static function defaultLimit(callable $defaultLimitCallback)
     {
         static::$defaultLimitCallback = $defaultLimitCallback;
