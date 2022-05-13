@@ -17,6 +17,8 @@ class Limit
     public static function actingAs(Authenticatable $user)
     {
         static::$user = $user;
+
+        return new static;
     }
 
     public static function user()
