@@ -48,6 +48,11 @@ class Limit
         }
     }
 
+    public function __call($name, $arguments)
+    {
+        return static::__callStatic($name, $arguments);
+    }
+
     public static function __callStatic($name, $arguments)
     {
         $limits = Cache::rememberForever('users:'.static::$user->id.':limits', function () {
