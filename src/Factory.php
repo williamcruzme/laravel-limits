@@ -6,29 +6,22 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
-class Limit
+class Factory
 {
-    public static $user;
-
     public static $limits = [];
 
     public static $defaultLimitCallback;
 
-    public static function actingAs(Authenticatable $user)
-    {
-        static::$user = $user;
-
-        return new static;
-    }
-
-    public static function user()
-    {
-        return static::$user;
-    }
+    protected $user;
 
     public static function register($key, $class)
     {
         static::$limits[$key] = $class;
+    }
+
+    public static function limits()
+    {
+        return static::$limits;
     }
 
     public static function resolve(Repository $repository)
@@ -48,17 +41,26 @@ class Limit
         }
     }
 
-    public function __call($name, $arguments)
+    public function actingAs(Authenticatable $user)
     {
-        return static::__callStatic($name, $arguments);
+        $this->user = $user;
+
+        return $this;
     }
 
-    public static function __callStatic($name, $arguments)
+    public function user()
     {
-        $limits = Cache::rememberForever('users:'.static::$user->id.':limits', function () {
-            static::$user->load('limits');
-            return static::$user->limits;
+        return $this->user;
+    }
+
+    public function __call($name, $arguments)
+    {
+        $limits = Cache::rememberForever("users:{$this->user->id}:limits", function () {
+            $this->user->load('limits');
+            return $this->user->limits;
         });
+
+        info($limits[$name]);
 
         return new Repository(Str::snake($name), $limits[$name] ?? []);
     }

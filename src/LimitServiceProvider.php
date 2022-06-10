@@ -3,6 +3,7 @@
 namespace Williamcruzme\Limits;
 
 use Illuminate\Support\ServiceProvider;
+use Williamcruzme\Limits\Facades\Limit;
 
 class LimitServiceProvider extends ServiceProvider
 {

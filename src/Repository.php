@@ -2,7 +2,7 @@
 
 namespace Williamcruzme\Limits;
 
-use Williamcruzme\Limits\Limit;
+use Williamcruzme\Limits\Facades\Limit;
 
 class Repository
 {
