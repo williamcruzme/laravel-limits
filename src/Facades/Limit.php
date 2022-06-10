@@ -11,6 +11,8 @@ use Williamcruzme\Limits\Factory;
  * @method static mixed resolve(\Williamcruzme\Limits\Repository $repository)
  * @method static void defaultLimit(callable $defaultLimitCallback)
  * @method static mixed resolveDefaultLimit($limit, $key)
+ * @method static self actingAs(\Illuminate\Contracts\Auth\Authenticatable $user)
+ * @method static mixed user()
  */
 class Limit extends Facade
 {

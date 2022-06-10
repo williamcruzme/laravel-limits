@@ -60,8 +60,6 @@ class Factory
             return $this->user->limits;
         });
 
-        info($limits[$name]);
-
         return new Repository(Str::snake($name), $limits[$name] ?? []);
     }
 }
